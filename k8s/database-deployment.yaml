@@ -10,7 +10,7 @@ spec:
   ports:
     - protocol: TCP
       port: 5432
-  type: ClusterIP  # Internal service (for communication between services)
+  type: ClusterIP
 
 ---
 # deployment
@@ -43,7 +43,7 @@ spec:
               value: "usersdb"
           volumeMounts:
             - name: shared-storage
-              mountPath: /var/lib/postgresql/data  # Mount shared storage for DB
+              mountPath: /var/lib/postgresql/data
       volumes:
         - name: shared-storage
           persistentVolumeClaim:
