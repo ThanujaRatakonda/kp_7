@@ -85,6 +85,9 @@ pipeline {
             when { expression { params.ACTION == 'FULL_PIPELINE' } }
             steps {
                 script {
+                     sh """
+                        kubectl get pvc shared-pvc || kubectl apply -f k8s/shared-pvc.yaml
+                     """
                     // Replace __IMAGE_TAG__ with the actual image tag in the YAML files
                     sh """
                         sed -i 's/__IMAGE_TAG__/${IMAGE_TAG}/g' k8s/frontend-deployment.yaml
