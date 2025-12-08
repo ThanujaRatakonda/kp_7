@@ -1,9 +1,15 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 import psycopg2
 import time
 import os
 
 app = FastAPI()
+
+@app.middleware("http")
+async def add_pod_header(request: Request, call_next):
+    response = await call_next(request)
+    response.headers["X-Pod-Name"] = POD_NAME
+    return response
 
 # Environment variables (from deployment)
 DB_HOST = os.environ.get("DB_HOST", "database")
