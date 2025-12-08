@@ -40,6 +40,6 @@ def main():
 
     print(f"\nTotal Success: {success}")
     print(f"Total Failed: {failed}")
-
+    print(f"Total Time Taken for all requests: {total_time:.3f}s")
 if __name__ == "__main__":
     main()
