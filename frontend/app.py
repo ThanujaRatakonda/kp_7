@@ -2,9 +2,11 @@ import streamlit as st
 import requests
 
 API_URL = "http://backend:5000"
+POD_NAME = os.getenv("HOSTNAME", "unknown")
 
 st.title("Users Management Application")
 
+st.write(f"### POD: {POD_NAME}")
 with st.form("user_form"):
     name = st.text_input("Enter Name")
     email = st.text_input("Enter Email")
