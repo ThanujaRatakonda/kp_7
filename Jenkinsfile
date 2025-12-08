@@ -145,7 +145,7 @@ pipeline {
             steps {
                 sh """
                     kubectl apply -f k8s/shared-pvc.yaml
-                    kubectl apply -f k8s/database-statefulset.yaml
+                    kubectl apply -f k8s/database-deployment.yaml
                 """
             }
         }
