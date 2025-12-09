@@ -19,7 +19,7 @@ pipeline {
 
     stages {
         stage('Checkout') {
-            when { expression { params.ACTION == 'FULL_PIPELINE' } }
+            when { expression {  params.ACTION != 'SCALE_ONLY' } }
             steps { git 'https://github.com/ThanujaRatakonda/kp_4.git' }
         }
 
