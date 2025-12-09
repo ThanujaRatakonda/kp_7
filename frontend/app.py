@@ -6,7 +6,7 @@ API_URL = "http://backend:5000"
 st.title("Users Management App")
 
 with st.form("user_form"):
-    name = st.text_input("Enter Name")
+    name = st.text_input("Enter Name of the user")
     email = st.text_input("Enter Email")
     submitted = st.form_submit_button("Add User")
     if submitted:
