@@ -160,10 +160,13 @@ pipeline {
             }
         }
   stage('Port Forward Services') {
+    when {
+        expression { params.ACTION in ['FULL_PIPELINE', 'FRONTEND_ONLY', 'BACKEND_ONLY'] }
+    }
     steps {
-        sh "bash ~/start-port-forwards.sh"
+        echo "Starting port-forward services..."
+        sh "bash start-port-forwards.sh"
     }
 }
-
     }
 }
