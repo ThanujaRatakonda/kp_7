@@ -2,8 +2,8 @@ import requests
 import concurrent.futures
 import time
 
-# URL via your ingress
-URL = "http://backend.local/users"  # make sure backend.local resolves to your cluster
+URL = "http://192.168.49.2:30987/users"
+
 
 def hit(i):
     try:
