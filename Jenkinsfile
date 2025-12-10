@@ -177,5 +177,7 @@ pipeline {
             bash -c "nohup kubectl port-forward svc/frontend 4000:3000 --address 0.0.0.0 >/dev/null 2>&1 &"
             bash -c "nohup kubectl port-forward statefulset/database 5433:5432 --address 0.0.0.0 >/dev/null 2>&1 &"
         """
+              }
+         }
     }
 }
