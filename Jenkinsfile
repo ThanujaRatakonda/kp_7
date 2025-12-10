@@ -164,14 +164,16 @@ stage('Start Port Forwarding') {
     steps {
         echo "Starting port forwarding safely..."
 
-        withCredentials([file(credentialsId: 'jenkins-kubeconfig', variable: 'KUBECONFIG')]) {
-            sh "chmod +x ./start-port-forward.sh"
-            sh "./start-port-forward.sh"
+        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+            sh '''
+                chmod +x ./start-port-forward.sh
+                ./start-port-forward.sh
+            '''
         }
-
         echo "Port forwarding successfully started!"
     }
 }
+
 
     }
 }
