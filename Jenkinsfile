@@ -178,7 +178,7 @@ pipeline {
                 kubectl port-forward svc/backend 5000:5000 --address 0.0.0.0 &
                 kubectl port-forward svc/frontend 4000:3000 --address 0.0.0.0 &
                 kubectl port-forward statefulset/database 5433:5432 --address 0.0.0.0 &
-                wait
+            
             '
         """
     }
