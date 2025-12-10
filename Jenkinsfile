@@ -162,25 +162,20 @@ pipeline {
          stage('Port Forward Services') {
     when {
         expression { params.ACTION in ['FULL_PIPELINE', 'FRONTEND_ONLY', 'BACKEND_ONLY'] }
-    }
-    steps {
+    } 
+              steps {
         sh """
-            if lsof -t -i:5000 >/dev/null; then
-                kill -9 \$(lsof -t -i:5000)
-            fi
-            if lsof -t -i:4000 >/dev/null; then
-                kill -9 \$(lsof -t -i:4000)
-            fi
-            if lsof -t -i:5433 >/dev/null; then
-                kill -9 \$(lsof -t -i:5433)
-            fi
+            echo "Killing any old processes on ports 4000, 5000, 5433..."
+            for port in 5000 4000 5433; do
+                pid=\$(lsof -t -i:\$port || true)
+                if [ ! -z "\$pid" ]; then
+                    kill -9 \$pid
+                fi
+            done
+            # Run in bash shell to ensure proper backgrounding
+            bash -c "nohup kubectl port-forward svc/backend 5000:5000 --address 0.0.0.0 >/dev/null 2>&1 &"
+            bash -c "nohup kubectl port-forward svc/frontend 4000:3000 --address 0.0.0.0 >/dev/null 2>&1 &"
+            bash -c "nohup kubectl port-forward statefulset/database 5433:5432 --address 0.0.0.0 >/dev/null 2>&1 &"
         """
-         sh """
-            nohup kubectl port-forward svc/backend 5000:5000 --address 0.0.0.0 >/dev/null 2>&1 &
-            nohup kubectl port-forward svc/frontend 4000:3000 --address 0.0.0.0 >/dev/null 2>&1 &
-            nohup kubectl port-forward statefulset/database 5433:5432 --address 0.0.0.0 >/dev/null 2>&1 &
-        """
-    }
-}
     }
 }
