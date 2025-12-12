@@ -3,7 +3,7 @@ pipeline {
     environment {
         IMAGE_TAG = "${env.BUILD_NUMBER}"
         HARBOR_URL = "10.131.103.92:8090"
-        HARBOR_PROJECT = "kp_4"
+        HARBOR_PROJECT = "kp_7"
         TRIVY_OUTPUT_JSON = "trivy-output.json"
     }
     parameters {
@@ -20,7 +20,7 @@ pipeline {
     stages {
         stage('Checkout') {
             when { expression {  params.ACTION != 'SCALE_ONLY' } }
-            steps { git 'https://github.com/ThanujaRatakonda/kp_4.git' }
+            steps { git 'https://github.com/ThanujaRatakonda/kp_7.git' }
         }
 
         // Storage 
@@ -159,22 +159,5 @@ pipeline {
                 }
             }
         }
-    stage('Start Port Forwarding') {
-    when { 
-        expression { 
-            params.ACTION in ['FULL_PIPELINE', 'SCALE_ONLY', 'FRONTEND_ONLY', 'BACKEND_ONLY'] 
-        } 
-    }
-    steps {
-        echo "Starting port forwarding safely..."
-        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-            sh ''' 
-                chmod +x ./start-port-forward.sh   # Make the script executable
-                ./start-port-forward.sh            # Run the script
-            '''
-        }
-        echo "Port forwarding successfully started!"
-    }
-}
     }
 }
