@@ -313,4 +313,80 @@ wait_port() {
 cleanup() {
   echo "[INFO] Cleaning up port-forwarders..."
   # Kill all port-forwarding processes
-  for pid 
+  for pid in "${pids[@]}"; do
+    kill "${pid}" 2>/dev/null || true
+    wait "${pid}" 2>/dev/null || true
+  done
+}
+trap cleanup EXIT INT TERM
+
+# Resolve database pod (more robust than targeting StatefulSet directly)
+DB_POD="$("${KUBECTL}" -n "${NAMESPACE}" get pods -l app=database -o jsonpath='{.items[0].metadata.name}')"
+if [[ -z "${DB_POD}" ]]; then
+  echo "[WARN] No database pod found by label app=database; trying statefulset/database directly."
+  TARGET_DB="statefulset/database"
+else
+  TARGET_DB="pod/${DB_POD}"
+fi
+
+# Start port forwarding for services and pods
+start_pf "backend"  "svc/backend"    5000 5000
+start_pf "frontend" "svc/frontend"   4000 3000
+start_pf "database" "${TARGET_DB}"   5433 5432
+
+# Wait for readiness
+wait_port "backend"  5000
+wait_port "frontend" 4000
+wait_port "database" 5433
+
+# If NO_BLOCK=1, exit and let Jenkins continue while PF keeps running
+if [[ "${NO_BLOCK:-}" = "1" ]]; then
+  echo "[INFO] Port-forwarders are up (non-blocking mode)."
+  exit 0
+fi
+
+echo "[INFO] Port-forwarders active. Blocking until killed..."
+wait
+[?2004h]0;ThanujaRatakonda@JFROG-Ubuntu: ~/kp_4[01;32mThanujaRatakonda@JFROG-Ubuntu[00m:[01;34m~/kp_4[00m$ [7mapp.run(host='0.0.0.0', port=5000)[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Capp.run(host='0.0.0.0', port=5000)
+[A
+[?2004lbash: syntax error near unexpected token `host='0.0.0.0','
+[?2004h]0;ThanujaRatakonda@JFROG-Ubuntu: ~/kp_4[01;32mThanujaRatakonda@JFROG-Ubuntu[00m:[01;34m~/kp_4[00m$ gitnpull
+[?2004lWARNING:root:could not open file '/etc/apt/sources.list.d/docker.list'
+
+WARNING:root:could not open file '/etc/apt/sources.list.d/jfrog.list'
+
+gitnpull: command not found
+[?2004h]0;ThanujaRatakonda@JFROG-Ubuntu: ~/kp_4[01;32mThanujaRatakonda@JFROG-Ubuntu[00m:[01;34m~/kp_4[00m$ git pull
+[?2004lremote: Enumerating objects: 5, done.[K
+remote: Counting objects:  20% (1/5)[Kremote: Counting objects:  40% (2/5)[Kremote: Counting objects:  60% (3/5)[Kremote: Counting objects:  80% (4/5)[Kremote: Counting objects: 100% (5/5)[Kremote: Counting objects: 100% (5/5), done.[K
+remote: Compressing objects:  33% (1/3)[Kremote: Compressing objects:  66% (2/3)[Kremote: Compressing objects: 100% (3/3)[Kremote: Compressing objects: 100% (3/3), done.[K
+remote: Total 3 (delta 2), reused 0 (delta 0), pack-reused 0 (from 0)[K
+Unpacking objects:  33% (1/3)Unpacking objects:  66% (2/3)Unpacking objects: 100% (3/3)Unpacking objects: 100% (3/3), 968 bytes | 242.00 KiB/s, done.
+From https://github.com/ThanujaRatakonda/kp_4
+   e18dfdf..04443d7  master     -> origin/master
+Updating e18dfdf..04443d7
+error: Your local changes to the following files would be overwritten by merge:
+	start-port-forward.sh
+Please commit your changes or stash them before you merge.
+Aborting
+[?2004h]0;ThanujaRatakonda@JFROG-Ubuntu: ~/kp_4[01;32mThanujaRatakonda@JFROG-Ubuntu[00m:[01;34m~/kp_4[00m$ clear
+[?2004l[H[2J[3J[?2004h]0;ThanujaRatakonda@JFROG-Ubuntu: ~/kp_4[01;32mThanujaRatakonda@JFROG-Ubuntu[00m:[01;34m~/kp_4[00m$ fi[K[Kgit dta[K[K[Kstatus
+[?2004lOn branch master
+Your branch is behind 'origin/master' by 1 commit, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	[31mmodified:   start-port-forward.sh[m
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	[31mreturned[m
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[?2004h]0;ThanujaRatakonda@JFROG-Ubuntu: ~/kp_4[01;32mThanujaRatakonda@JFROG-Ubuntu[00m:[01;34m~/kp_4[00m$ git add .
+[?2004l[?2004h]0;ThanujaRatakonda@JFROG-Ubuntu: ~/kp_4[01;32mThanujaRatakonda@JFROG-Ubuntu[00m:[01;34m~/kp_4[00m$ git commit -m "change [K"
+[?2004l[master 4de3326] change
+ 2 files changed, 316 insertions(+)
