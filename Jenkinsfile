@@ -160,7 +160,7 @@ pipeline {
             }
         }
 stage('Start Port Forwarding') {
-    when { expression { params.ACTION == 'FULL_PIPELINE' } }
+      when { expression { params.ACTION in ['FULL_PIPELINE', 'SCALE_ONLY', 'FRONTEND_ONLY', 'BACKEND_ONLY'] } }
     steps {
         echo "Starting port forwarding safely..."
 
@@ -168,7 +168,7 @@ stage('Start Port Forwarding') {
             sh '''
                 export KUBECONFIG=$KUBECONFIG  # Ensure KUBECONFIG points to the right file
                 chmod +x ./start-port-forward.sh
-                ./start-port-forward.sh
+                NO_BLOCK=1 ./start-port-forward.sh  # Run in non-blocking mode
             '''
         }
         echo "Port forwarding successfully started!"
