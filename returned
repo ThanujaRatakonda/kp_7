@@ -390,3 +390,56 @@ no changes added to commit (use "git add" and/or "git commit -a")
 [?2004l[?2004h]0;ThanujaRatakonda@JFROG-Ubuntu: ~/kp_4[01;32mThanujaRatakonda@JFROG-Ubuntu[00m:[01;34m~/kp_4[00m$ git commit -m "change [K"
 [?2004l[master 4de3326] change
  2 files changed, 316 insertions(+)
+ create mode 100644 returned
+ mode change 100644 => 100755 start-port-forward.sh
+[?2004h]0;ThanujaRatakonda@JFROG-Ubuntu: ~/kp_4[01;32mThanujaRatakonda@JFROG-Ubuntu[00m:[01;34m~/kp_4[00m$ git push
+[?2004lUsername for 'https://github.com': Thanuja
+Password for 'https://Thanuja@github.com': 
+To https://github.com/ThanujaRatakonda/kp_4.git
+ [31m! [rejected]       [m master -> master (non-fast-forward)
+[31merror: failed to push some refs to 'https://github.com/ThanujaRatakonda/kp_4.git'
+[m[33mhint: Updates were rejected because the tip of your current branch is behind[m
+[33mhint: its remote counterpart. Integrate the remote changes (e.g.[m
+[33mhint: 'git pull ...') before pushing again.[m
+[33mhint: See the 'Note about fast-forwards' in 'git push --help' for details.[m
+[?2004h]0;ThanujaRatakonda@JFROG-Ubuntu: ~/kp_4[01;32mThanujaRatakonda@JFROG-Ubuntu[00m:[01;34m~/kp_4[00m$ [7mgit pull origin master[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgit pull origin master
+[A
+[?2004lFrom https://github.com/ThanujaRatakonda/kp_4
+ * branch            master     -> FETCH_HEAD
+[33mhint: You have divergent branches and need to specify how to reconcile them.[m
+[33mhint: You can do so by running one of the following commands sometime before[m
+[33mhint: your next pull:[m
+[33mhint: [m
+[33mhint:   git config pull.rebase false  # merge (the default strategy)[m
+[33mhint:   git config pull.rebase true   # rebase[m
+[33mhint:   git config pull.ff only       # fast-forward only[m
+[33mhint: [m
+[33mhint: You can replace "git config" with "git config --global" to set a default[m
+[33mhint: preference for all repositories. You can also pass --rebase, --no-rebase,[m
+[33mhint: or --ff-only on the command line to override the configured default per[m
+[33mhint: invocation.[m
+fatal: Need to specify how to reconcile divergent branches.
+[?2004h]0;ThanujaRatakonda@JFROG-Ubuntu: ~/kp_4[01;32mThanujaRatakonda@JFROG-Ubuntu[00m:[01;34m~/kp_4[00m$ [7mgit pull --rebase origin master[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgit pull --rebase origin master
+[A
+[?2004lerror: cannot pull with rebase: You have unstaged changes.
+error: please commit or stash them.
+[?2004h]0;ThanujaRatakonda@JFROG-Ubuntu: ~/kp_4[01;32mThanujaRatakonda@JFROG-Ubuntu[00m:[01;34m~/kp_4[00m$ git pull --rebase origin master[9P[C[C[C[C[C[C[C[C[C[C[C[C[Csh[Kcommit -m "change"add .[K
+[?2004l[?2004h]0;ThanujaRatakonda@JFROG-Ubuntu: ~/kp_4[01;32mThanujaRatakonda@JFROG-Ubuntu[00m:[01;34m~/kp_4[00m$ git add .pull --rebase origin master[9P[C[C[C[C[C[C[C[C[C[C[C[C[Csh[Kcommit -m "change"
+[?2004l[master 8cede78] change
+ 1 file changed, 77 insertions(+), 1 deletion(-)
+[?2004h]0;ThanujaRatakonda@JFROG-Ubuntu: ~/kp_4[01;32mThanujaRatakonda@JFROG-Ubuntu[00m:[01;34m~/kp_4[00m$ git pusj[Kh
+[?2004lUsername for 'https://github.com': Thanuja
+Password for 'https://Thanuja@github.com': 
+remote: Invalid username or token. Password authentication is not supported for Git operations.
+fatal: Authentication failed for 'https://github.com/ThanujaRatakonda/kp_4.git/'
+[?2004h]0;ThanujaRatakonda@JFROG-Ubuntu: ~/kp_4[01;32mThanujaRatakonda@JFROG-Ubuntu[00m:[01;34m~/kp_4[00m$ git push
+[?2004lUsername for 'https://github.com': Thanuja
+Password for 'https://Thanuja@github.com': 
+To https://github.com/ThanujaRatakonda/kp_4.git
+ [31m! [rejected]       [m master -> master (non-fast-forward)
+[31merror: failed to push some refs to 'https://github.com/ThanujaRatakonda/kp_4.git'
+[m[33mhint: Updates were rejected because the tip of your current branch is behind[m
+[33mhint: its remote counterpart. Integrate the remote changes (e.g.[m
+[33mhint: 'git pull ...') before pushing again.[
