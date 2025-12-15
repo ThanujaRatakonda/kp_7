@@ -8,7 +8,7 @@ image:
   repository: 10.131.103.92:8090/kp_4/backend
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "86"
 
 imagePullSecrets:
   - name: regcred
@@ -90,3 +90,14 @@ volumes:
   - name: shared-storage
     persistentVolumeClaim:
       claimName: shared-pvc
+
+
+env:
+  - name: DB_HOST
+    value: "database"   # Replace with your DB Service name
+  - name: DB_NAME
+    value: "usersdb"
+  - name: DB_USER
+    value: "admin"
+  - name: DB_PASSWORD
+    value: "admin"
