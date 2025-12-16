@@ -14,18 +14,13 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-# PostgreSQL Database Configuration
-postgresql:
-  username: admin  # The username for PostgreSQL
-  password: admin  # The password for PostgreSQL
-  database: usersdb  # The database name
 env:
-  - name: POSTGRES_USER
-    value: {{ .Values.postgresql.username | quote }}
-  - name: POSTGRES_PASSWORD
-    value: {{ .Values.postgresql.password | quote }}
-  - name: POSTGRES_DB
-    value: {{ .Values.postgresql.database | quote }}
+   - name: POSTGRES_USER
+     value: "admin"
+   - name: POSTGRES_PASSWORD
+     value: "admin"
+   - name: POSTGRES_DB
+     value: "usersdb"
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -93,3 +88,11 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+volumeMounts:
+  - name: database-storage
+    mountPath: /var/lib/postgresql/data
+volumes:
+  - name: database-storage
+    persistentVolumeClaim:
+      claimName: shared-pvc
