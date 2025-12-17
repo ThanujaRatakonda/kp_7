@@ -8,7 +8,7 @@ spec:
 
   source:
     repoURL: https://github.com/ThanujaRatakonda/kp_7
-    targetRevision: main
+    targetRevision: master
     path: backend-hc
     helm:
       valueFiles:
