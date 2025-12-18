@@ -13,6 +13,9 @@ spec:
     helm:
       valueFiles:
         - values.yaml
+      parameters:
+        - name: imagePullSecrets
+          value: regcred
 
   destination:
     server: https://kubernetes.default.svc
